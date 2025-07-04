@@ -1,0 +1,26 @@
+# This is Git's per-user configuration file.
+[user]
+	name = Tai Koeda
+	email = t.koeda@cscloud.co.jp
+# Please adapt and uncomment the following lines:
+#	name = tkoeda-csc
+#	email = t.koeda@cscloud.co.jp
+[alias]
+	gl = config --global -l
+	can = commit --amend --no-edit
+	a = add
+	b = branch
+	l = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+	please = push --force-with-lease
+	paid = push
+	c = commit -m
+	ch = checkout
+	rv = remote -v
+	s = status
+	unstage = restore --staged
+	chb = checkout -b
+[pager]
+	branch = false
+[pull]
+	rebase = false
+	ff = false

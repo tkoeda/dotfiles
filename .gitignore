@@ -1,0 +1,11 @@
+# Ignore nested git repositories from Vim plugin managers
+# Your .vimrc should manage installing these on a new system.
+.vim/plugged/
+.vim/pack/
+
+# Ignore macOS specific files
+.DS_Store
+
+# Ignore temporary editor files
+*.swp
+*.swo
