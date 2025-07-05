@@ -1,4 +1,4 @@
-# Agent detection - only activate minimal mode for actual agents  
+# Agent detection - only activate minimal mode for actual agents
 if [[ -n "$npm_config_yes" ]] || [[ -n "$CI" ]] || [[ "$-" != *i* ]]; then
   export AGENT_MODE=true
 else
@@ -14,6 +14,7 @@ fi
 
 # Path to your Oh My Zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
+export ZSH_CUSTOM="$HOME/dotfiles/custom"
 
 # Hide username when you're the default user (BEFORE sourcing Oh My Zsh)
 export DEFAULT_USER=$USER
@@ -41,7 +42,7 @@ if [[ "$AGENT_MODE" != "true" ]]; then
   # Initialize Pure theme
   autoload -U promptinit; promptinit
   prompt pure
-  
+
   # More vibrant Aura Dracula Spirit colors
   zstyle :prompt:pure:path color 183                    # Brighter purple for paths
   zstyle :prompt:pure:git:branch color 13               # Hot magenta for branches
@@ -62,12 +63,12 @@ else
   unsetopt CORRECT
   unsetopt CORRECT_ALL
   setopt NO_BEEP
-  setopt NO_HIST_BEEP  
+  setopt NO_HIST_BEEP
   setopt NO_LIST_BEEP
-  
+
   # Agent-friendly aliases to avoid interactive prompts
   alias rm='rm -f'
-  alias cp='cp -f' 
+  alias cp='cp -f'
   alias mv='mv -f'
   alias npm='npm --no-fund --no-audit'
   alias yarn='yarn --non-interactive'
