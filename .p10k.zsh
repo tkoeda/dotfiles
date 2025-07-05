@@ -45,6 +45,18 @@
   local magenta='5'
   local cyan='6'
   local white='7'
+  local color_path='183'
+  local color_git_branch='13'
+  local color_git_branch_cached='54'
+  local color_git_action='208'
+  local color_git_dirty='13'
+  local color_host='51'
+  local color_user='141'
+  local color_user_root='196'
+  local color_virtualenv='226'
+  local color_execution_time='176'
+  local color_prompt_success='13'
+  local color_prompt_error='196'
 
   # Left prompt segments.
   typeset -g POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(
@@ -81,10 +93,10 @@
   # in Pure that makes prompt drift down whenever you use the Alt-C binding from fzf or similar.
   typeset -g POWERLEVEL9K_PROMPT_ADD_NEWLINE=true
 
-  # Magenta prompt symbol if the last command succeeded.
-  typeset -g POWERLEVEL9K_PROMPT_CHAR_OK_{VIINS,VICMD,VIVIS}_FOREGROUND=$magenta
-  # Red prompt symbol if the last command failed.
-  typeset -g POWERLEVEL9K_PROMPT_CHAR_ERROR_{VIINS,VICMD,VIVIS}_FOREGROUND=$red
+  # Hot magenta/pink prompt symbol if the last command succeeded.
+  typeset -g POWERLEVEL9K_PROMPT_CHAR_OK_{VIINS,VICMD,VIVIS}_FOREGROUND=$color_prompt_success
+  # Bright red prompt symbol if the last command failed.
+  typeset -g POWERLEVEL9K_PROMPT_CHAR_ERROR_{VIINS,VICMD,VIVIS}_FOREGROUND=$color_prompt_error
   # Default prompt symbol.
   typeset -g POWERLEVEL9K_PROMPT_CHAR_{OK,ERROR}_VIINS_CONTENT_EXPANSION='❯'
   # Prompt symbol in command vi mode.
@@ -94,19 +106,19 @@
   # Prompt symbol in overwrite vi mode is the same as in command mode.
   typeset -g POWERLEVEL9K_PROMPT_CHAR_OVERWRITE_STATE=false
 
-  # Grey Python Virtual Environment.
-  typeset -g POWERLEVEL9K_VIRTUALENV_FOREGROUND=$grey
+  # Bright yellow Python Virtual Environment.
+  typeset -g POWERLEVEL9K_VIRTUALENV_FOREGROUND=$color_virtualenv
   # Don't show Python version.
   typeset -g POWERLEVEL9K_VIRTUALENV_SHOW_PYTHON_VERSION=false
   typeset -g POWERLEVEL9K_VIRTUALENV_{LEFT,RIGHT}_DELIMITER=
 
-  # Blue current directory.
-  typeset -g POWERLEVEL9K_DIR_FOREGROUND=$blue
+  # Brighter purple for paths.
+  typeset -g POWERLEVEL9K_DIR_FOREGROUND=$color_path
 
-  # Context format when root: user@host. The first part white, the rest grey.
-  typeset -g POWERLEVEL9K_CONTEXT_ROOT_TEMPLATE="%F{$white}%n%f%F{$grey}@%m%f"
-  # Context format when not root: user@host. The whole thing grey.
-  typeset -g POWERLEVEL9K_CONTEXT_TEMPLATE="%F{$grey}%n@%m%f"
+  # Electric cyan for host, vibrant purple for user, bright red for root.
+  typeset -g POWERLEVEL9K_CONTEXT_ROOT_TEMPLATE="%F{$color_user_root}%n%f%F{$color_host}@%m%f"
+  # Electric cyan for user, vibrant purple for host.
+  typeset -g POWERLEVEL9K_CONTEXT_TEMPLATE="%F{$color_user}%n%f%F{$color_host}@%m%f"
   # Don't show context unless root or in SSH.
   typeset -g POWERLEVEL9K_CONTEXT_{DEFAULT,SUDO}_CONTENT_EXPANSION=
 
@@ -116,11 +128,15 @@
   typeset -g POWERLEVEL9K_COMMAND_EXECUTION_TIME_PRECISION=0
   # Duration format: 1d 2h 3m 4s.
   typeset -g POWERLEVEL9K_COMMAND_EXECUTION_TIME_FORMAT='d h m s'
-  # Yellow previous command duration.
-  typeset -g POWERLEVEL9K_COMMAND_EXECUTION_TIME_FOREGROUND=$yellow
+  # Soft pink for timing.
+  typeset -g POWERLEVEL9K_COMMAND_EXECUTION_TIME_FOREGROUND=$color_execution_time
 
-  # Grey Git prompt. This makes stale prompts indistinguishable from up-to-date ones.
-  typeset -g POWERLEVEL9K_VCS_FOREGROUND=$grey
+  # Hot magenta for branches, deep purple for cached, bright orange for actions, hot pink for dirty status.
+  typeset -g POWERLEVEL9K_VCS_FOREGROUND=$color_git_branch
+  typeset -g POWERLEVEL9K_VCS_BRANCH_FOREGROUND=$color_git_branch
+  typeset -g POWERLEVEL9K_VCS_BRANCH_CACHED_FOREGROUND=$color_git_branch_cached
+  typeset -g POWERLEVEL9K_VCS_ACTION_FOREGROUND=$color_git_action
+  typeset -g POWERLEVEL9K_VCS_DIRTY_FOREGROUND=$color_git_dirty
 
   # Disable async loading indicator to make directories that aren't Git repositories
   # indistinguishable from large Git repositories without known state.
