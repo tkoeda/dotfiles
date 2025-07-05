@@ -28,6 +28,9 @@ files_to_manage=(
     ".config"
     ".oh-my-zsh/custom"
     ".vim"
+
+    # --- Powerlevel10k config ---
+    ".p10k.zsh"
 )
 
 # --- Command Line Options ---
