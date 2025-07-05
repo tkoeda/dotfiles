@@ -4,3 +4,6 @@
 [submodule "custom/themes/powerlevel10k"]
 	path = custom/themes/powerlevel10k
 	url = https://github.com/romkatv/powerlevel10k.git
+[submodule "custom/plugins/zsh-shift-select"]
+	path = custom/plugins/zsh-shift-select
+	url = https://github.com/jirutka/zsh-shift-select.git
