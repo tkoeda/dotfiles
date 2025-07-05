@@ -48,7 +48,7 @@ eval "$(pyenv init - zsh)"
 export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
 
 alias g=git
-alias vim=nvim
+alias v='nvim'
 
 if [[ "$AGENT_MODE" != "true" ]]; then
   [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
