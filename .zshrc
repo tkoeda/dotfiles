@@ -36,6 +36,7 @@ eval "$(pyenv init - zsh)"
 export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
 
 alias g=git
+alias vim=nvim
 
 # Pure theme configuration (AFTER Oh My Zsh)
 if [[ "$AGENT_MODE" != "true" ]]; then
