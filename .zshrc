@@ -36,6 +36,8 @@ else
 fi
 plugins=(
 zsh-shift-select
+zsh-autosuggestions
+zsh-you-should-use
 )
 
 # Source Oh My Zsh (theme and plugins get loaded here)
@@ -52,7 +54,7 @@ alias v='nvim'
 
 if [[ "$AGENT_MODE" != "true" ]]; then
   [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-  
+
   # # More vibrant Aura Dracula Spirit colors
   # zstyle :prompt:pure:path color 183                    # Brighter purple for paths
   # zstyle :prompt:pure:git:branch color 13               # Hot magenta for branches
@@ -86,6 +88,5 @@ else
   alias git='git -c advice.detachedHead=false'
 fi
 
-source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source $(brew --prefix)/share/zsh-you-should-use/you-should-use.plugin.zsh
+# Source zsh-syntax-highlighting after Oh My Zsh (required for proper highlighting)
+source $ZSH_CUSTOM/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
