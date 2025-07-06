@@ -1,6 +1,3 @@
-[submodule "plugins/zsh-shift-select"]
-	path = plugins/zsh-shift-select
-	url = https://github.com/jirutka/zsh-shift-select.git
 [submodule "custom/themes/powerlevel10k"]
 	path = custom/themes/powerlevel10k
 	url = https://github.com/romkatv/powerlevel10k.git
