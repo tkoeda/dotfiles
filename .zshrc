@@ -1,5 +1,12 @@
 zmodload zsh/zprof
 
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 # Agent detection - only activate minimal mode for actual agents
 if [[ -n "$npm_config_yes" ]] || [[ -n "$CI" ]] || [[ "$-" != *i* ]]; then
   export AGENT_MODE=true
@@ -22,11 +29,15 @@ export ZSH_CUSTOM="$HOME/dotfiles/custom"
 export DEFAULT_USER=$USER
 
 # Set Oh My Zsh theme conditionally (BEFORE sourcing Oh My Zsh)
-ZSH_THEME=""
-
+if [[ "$AGENT_MODE" != "true" ]]; then
+  ZSH_THEME="powerlevel10k/powerlevel10k"
+else
+  ZSH_THEME=""
+fi
 plugins=(
 zsh-shift-select
 zsh-autosuggestions
+zsh-syntax-highlighting
 zsh-you-should-use
 )
 
@@ -42,10 +53,22 @@ export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
 alias g=git
 alias v='nvim'
 
-# Oh My Posh configuration (only for interactive sessions)
 if [[ "$AGENT_MODE" != "true" ]]; then
-  # Initialize Oh My Posh with custom Pure theme (no username, transient prompt enabled)
-  eval "$(oh-my-posh init zsh --config $HOME/dotfiles/custom/pure.omp.json)"
+  [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+  # # More vibrant Aura Dracula Spirit colors
+  # zstyle :prompt:pure:path color 183                    # Brighter purple for paths
+  # zstyle :prompt:pure:git:branch color 13               # Hot magenta for branches
+  # zstyle :prompt:pure:git:branch:cached color 54        # Deep purple for cached
+  # zstyle :prompt:pure:git:action color 208              # Bright orange for actions
+  # zstyle :prompt:pure:git:dirty color 13                # Hot pink for dirty status
+  # zstyle :prompt:pure:host color 51                     # Electric cyan for host
+  # zstyle :prompt:pure:user color 141                    # Vibrant purple for user
+  # zstyle :prompt:pure:user:root color 196               # Bright red for root
+  # zstyle :prompt:pure:virtualenv color 226              # Bright yellow for virtualenv
+  # zstyle :prompt:pure:execution_time color 176          # Soft pink for timing
+  # zstyle :prompt:pure:prompt:success color 13            # Hot magenta/pink for success arrow
+  # zstyle :prompt:pure:prompt:error color 196             # Bright red for error arrow
 else
   # Agent-specific minimal prompt
   PROMPT='%n@%m:%~%# '
@@ -65,6 +88,3 @@ else
   alias pip='pip --quiet'
   alias git='git -c advice.detachedHead=false'
 fi
-
-# Source zsh-syntax-highlighting after Oh My Zsh (required for proper highlighting)
-source $ZSH_CUSTOM/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
