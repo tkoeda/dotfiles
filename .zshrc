@@ -27,7 +27,6 @@ ZSH_THEME=""
 plugins=(
 zsh-shift-select
 zsh-autosuggestions
-zsh-syntax-highlighting
 zsh-you-should-use
 )
 
@@ -66,3 +65,6 @@ else
   alias pip='pip --quiet'
   alias git='git -c advice.detachedHead=false'
 fi
+
+# Source zsh-syntax-highlighting after Oh My Zsh (required for proper highlighting)
+source $ZSH_CUSTOM/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
