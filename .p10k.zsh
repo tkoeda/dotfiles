@@ -137,16 +137,6 @@
   typeset -g POWERLEVEL9K_VCS_BRANCH_CACHED_FOREGROUND=$color_git_branch_cached
   typeset -g POWERLEVEL9K_VCS_ACTION_FOREGROUND=$color_git_action
   typeset -g POWERLEVEL9K_VCS_DIRTY_FOREGROUND=$color_git_dirty
-  # Enhanced git status colors.
-  typeset -g POWERLEVEL9K_VCS_STAGED_FOREGROUND=$color_git_branch       # Hot magenta for staged files
-  typeset -g POWERLEVEL9K_VCS_UNSTAGED_FOREGROUND=$color_git_action     # Bright orange for unstaged files
-  typeset -g POWERLEVEL9K_VCS_UNTRACKED_FOREGROUND=$color_git_branch_cached  # Deep purple for untracked files
-  typeset -g POWERLEVEL9K_VCS_STASH_FOREGROUND=$cyan                    # Cyan for stashes
-  typeset -g POWERLEVEL9K_VCS_TAG_FOREGROUND=$color_git_branch          # Hot magenta for tags
-  # Advanced git status colors.
-  typeset -g POWERLEVEL9K_VCS_CONFLICTED_FOREGROUND=$color_prompt_error # Bright red for conflicts
-  typeset -g POWERLEVEL9K_VCS_DELETED_FOREGROUND=$color_git_action      # Bright orange for deleted files
-  typeset -g POWERLEVEL9K_VCS_RENAMED_FOREGROUND=$cyan                  # Cyan for renamed files
 
   # Disable async loading indicator to make directories that aren't Git repositories
   # indistinguishable from large Git repositories without known state.
@@ -158,29 +148,20 @@
 
   # Cyan ahead/behind arrows.
   typeset -g POWERLEVEL9K_VCS_{INCOMING,OUTGOING}_CHANGESFORMAT_FOREGROUND=$cyan
-  # Enhanced git hooks for detailed status information.
-  typeset -g POWERLEVEL9K_VCS_GIT_HOOKS=(vcs-detect-changes git-untracked git-aheadbehind git-stash git-remotebranch git-tagname)
+  # Don't show remote branch, current tag or stashes.
+  typeset -g POWERLEVEL9K_VCS_GIT_HOOKS=(vcs-detect-changes git-untracked git-aheadbehind)
   # Don't show the branch icon.
   typeset -g POWERLEVEL9K_VCS_BRANCH_ICON=
   # When in detached HEAD state, show @commit where branch normally goes.
   typeset -g POWERLEVEL9K_VCS_COMMIT_ICON='@'
-  # Individual file status indicators.
-  typeset -g POWERLEVEL9K_VCS_STAGED_ICON='+'
-  typeset -g POWERLEVEL9K_VCS_UNSTAGED_ICON='!'
-  typeset -g POWERLEVEL9K_VCS_UNTRACKED_ICON='?'
+  # Don't show staged, unstaged, untracked indicators.
+  typeset -g POWERLEVEL9K_VCS_{STAGED,UNSTAGED,UNTRACKED}_ICON=
   # Show '*' when there are staged, unstaged or untracked files.
   typeset -g POWERLEVEL9K_VCS_DIRTY_ICON='*'
   # Show '⇣' if local branch is behind remote.
   typeset -g POWERLEVEL9K_VCS_INCOMING_CHANGES_ICON=':⇣'
   # Show '⇡' if local branch is ahead of remote.
   typeset -g POWERLEVEL9K_VCS_OUTGOING_CHANGES_ICON=':⇡'
-  # Additional git status indicators.
-  typeset -g POWERLEVEL9K_VCS_STASH_ICON='✦'
-  typeset -g POWERLEVEL9K_VCS_TAG_ICON='◊'
-  # Advanced git status symbols.
-  typeset -g POWERLEVEL9K_VCS_CONFLICTED_ICON='≡'
-  typeset -g POWERLEVEL9K_VCS_DELETED_ICON='⊗'
-  typeset -g POWERLEVEL9K_VCS_RENAMED_ICON='⟶'
   # Don't show the number of commits next to the ahead/behind arrows.
   typeset -g POWERLEVEL9K_VCS_{COMMITS_AHEAD,COMMITS_BEHIND}_MAX_NUM=1
   # Remove space between '⇣' and '⇡' and all trailing spaces.
