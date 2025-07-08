@@ -22,11 +22,7 @@ export ZSH_CUSTOM="$HOME/dotfiles/custom"
 export DEFAULT_USER=$USER
 
 # Set Oh My Zsh theme conditionally (BEFORE sourcing Oh My Zsh)
-if [[ "$AGENT_MODE" != "true" ]]; then
-  ZSH_THEME=""
-else
-  ZSH_THEME=""
-fi
+ZSH_THEME=""
 
 plugins=(
 zsh-shift-select
