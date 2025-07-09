@@ -2353,55 +2353,6 @@
                                 "type": "basic"
                             }
                         ]
-                    },
-                    {
-                        "description": "Map Eisu/Kana to L/R Command (JIS)",
-                        "manipulators": [
-                            {
-                                "description": " EISUU → LEFT COMMAND ",
-                                "from": {
-                                    "key_code": "japanese_eisuu",
-                                    "modifiers": { "optional": ["any"] }
-                                },
-                                "to": [{ "key_code": "left_command" }],
-                                "type": "basic"
-                            },
-                            {
-                                "description": " KANA → RIGHT COMMAND ",
-                                "from": {
-                                    "key_code": "japanese_kana",
-                                    "modifiers": { "optional": ["any"] }
-                                },
-                                "to": [{ "key_code": "right_command" }],
-                                "type": "basic"
-                            }
-                        ]
-                    },
-                    {
-                        "description": "［ JIS ］英数・かな キーを、他のキーと組み合わせて押したときは コマンドキー（⌘）として扱う",
-                        "enabled": false,
-                        "manipulators": [
-                            {
-                                "description": " EISUU → LEFT COMMAND ",
-                                "from": {
-                                    "key_code": "japanese_eisuu",
-                                    "modifiers": { "optional": ["any"] }
-                                },
-                                "to": [{ "key_code": "left_command" }],
-                                "to_if_alone": [{ "key_code": "japanese_eisuu" }],
-                                "type": "basic"
-                            },
-                            {
-                                "description": " KANA → RIGHT COMMAND ",
-                                "from": {
-                                    "key_code": "japanese_kana",
-                                    "modifiers": { "optional": ["any"] }
-                                },
-                                "to": [{ "key_code": "right_command" }],
-                                "to_if_alone": [{ "key_code": "japanese_kana" }],
-                                "type": "basic"
-                            }
-                        ]
                     }
                 ]
             },
