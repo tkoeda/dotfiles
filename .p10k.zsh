@@ -49,6 +49,7 @@
   else
     branch_color=$clean       # Green - all good
   fi
+
   local color_git_dirty='215'         # Orange for dirty state
   local color_git_clean='84'          # Green for clean state
   local color_prompt_success='84'     # Green for success
@@ -250,17 +251,17 @@
 
   ##################################[ dir: current directory ]##################################
   # Default current directory color.
-  typeset -g POWERLEVEL9K_DIR_FOREGROUND=$color_path 
+  typeset -g POWERLEVEL9K_DIR_FOREGROUND=$color_path
   # If directory is too long, shorten some of its segments to the shortest possible unique
   # prefix. The shortened directory can be tab-completed to the original.
   typeset -g POWERLEVEL9K_SHORTEN_STRATEGY=truncate_to_unique
   # Replace removed segment suffixes with this symbol.
   typeset -g POWERLEVEL9K_SHORTEN_DELIMITER=
   # Color of the shortened directory segments.
-  typeset -g POWERLEVEL9K_DIR_SHORTENED_FOREGROUND=$color_path 
+  typeset -g POWERLEVEL9K_DIR_SHORTENED_FOREGROUND=$color_path
   # Color of the anchor directory segments. Anchor segments are never shortened. The first
   # segment is always an anchor.
-  typeset -g POWERLEVEL9K_DIR_ANCHOR_FOREGROUND=$color_path 
+  typeset -g POWERLEVEL9K_DIR_ANCHOR_FOREGROUND=$color_path
   # Display anchor directory segments in bold.
   typeset -g POWERLEVEL9K_DIR_ANCHOR_BOLD=true
   # Don't shorten directories that contain any of these files. They are anchors.
@@ -370,7 +371,7 @@
   #
   #   # Styling for WORK_NON_EXISTENT.
   #   typeset -g POWERLEVEL9K_DIR_WORK_NON_EXISTENT_VISUAL_IDENTIFIER_EXPANSION='⭐'
-  #   typeset -g POWERLEVEL9K_DIR_WORK_NON_EXISTENT_FOREGROUND=$color_red 
+  #   typeset -g POWERLEVEL9K_DIR_WORK_NON_EXISTENT_FOREGROUND=$color_red
   #   typeset -g POWERLEVEL9K_DIR_WORK_NON_EXISTENT_SHORTENED_FOREGROUND=103
   #   typeset -g POWERLEVEL9K_DIR_WORK_NON_EXISTENT_ANCHOR_FOREGROUND=39
   #
@@ -410,12 +411,13 @@
     fi
 
     if (( $1 )); then
-      # Styling for up-to-date Git status - Aura Dracula theme colors.
+      # Styling for up-to-date Git status - Aura Dracula Spirit theme colors.
       local       meta='%f'     # default foreground
-      local      clean='%84F'   # green
-      local   modified='%215F'  # orange
-      local  untracked='%117F'  # cyan
-      local conflicted='%203F'  # red
+      local      clean='%103F'  # comment/gray for clean repos
+      local   modified='%203F'  # red for unstaged changes
+      local  untracked='%117F'  # cyan for untracked files
+      local conflicted='%203F'  # red for conflicts
+      local    staged='%84F'    # green for staged changes
     else
       # Styling for incomplete and stale Git status.
       local       meta='%103F'  # comment/gray
@@ -423,6 +425,7 @@
       local   modified='%103F'
       local  untracked='%103F'
       local conflicted='%103F'
+      local    staged='%103F'
     fi
 
     local res
@@ -487,7 +490,7 @@
     # ~42 if have merge conflicts.
     (( VCS_STATUS_NUM_CONFLICTED )) && res+=" ${conflicted}~${VCS_STATUS_NUM_CONFLICTED}"
     # +42 if have staged changes.
-    (( VCS_STATUS_NUM_STAGED     )) && res+=" ${modified}+${VCS_STATUS_NUM_STAGED}"
+    (( VCS_STATUS_NUM_STAGED     )) && res+=" ${staged}+${VCS_STATUS_NUM_STAGED}"
     # !42 if have unstaged changes.
     (( VCS_STATUS_NUM_UNSTAGED   )) && res+=" ${modified}!${VCS_STATUS_NUM_UNSTAGED}"
     # ?42 if have untracked files. It's really a question mark, your font isn't broken.

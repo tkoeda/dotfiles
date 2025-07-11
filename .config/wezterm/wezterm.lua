@@ -158,6 +158,23 @@ config.keys = {
     action = wezterm.action.CloseCurrentPane { confirm = true },
   },
 
+
+-- Zoom with + and -
+  {
+  key = '+',
+  mods = 'CMD',
+  action = wezterm.action.IncreaseFontSize,
+  },
+  {
+  key = '-',
+  mods = 'CMD',
+  action = wezterm.action.DecreaseFontSize,
+  },
+  {
+  key = '0',
+  mods = 'CMD',
+  action = wezterm.action.ResetFontSize,
+  },
   -- Shift Highlight
 
   -- { key = 'LeftArrow', mods = 'CTRL|SHIFT', action = 'DisableDefaultAssignment' },
