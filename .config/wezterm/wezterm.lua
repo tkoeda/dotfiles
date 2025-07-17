@@ -175,8 +175,8 @@ config.keys = {
   mods = 'CMD',
   action = wezterm.action.ResetFontSize,
   },
-  -- Shift Highlight
 
+  -- Shift Highlight
   -- { key = 'LeftArrow', mods = 'CTRL|SHIFT', action = 'DisableDefaultAssignment' },
   -- { key = 'RightArrow', mods = 'CTRL|SHIFT', action = 'DisableDefaultAssignment' },
 
