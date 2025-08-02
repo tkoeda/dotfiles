@@ -88,3 +88,5 @@ else
   alias pip='pip --quiet'
   alias git='git -c advice.detachedHead=false'
 fi
+export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
+eval "$(zoxide init zsh)"
