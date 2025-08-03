@@ -81,6 +81,8 @@ eval "$(zoxide init zsh)"
 # General aliases
 alias g='git'
 alias v='nvim'
+alias cd='z'
+alias zz='z -'
 
 # File listing (eza)
 alias ls='eza'
