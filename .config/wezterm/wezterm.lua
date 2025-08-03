@@ -1,7 +1,6 @@
 -- WezTerm configuration based on VS Code settings
 local wezterm = require 'wezterm'
 local config = {}
-
 -- In newer versions of wezterm, use the config_builder which will
 -- help provide clearer error messages
 if wezterm.config_builder then
@@ -101,17 +100,19 @@ config.tab_bar_at_bottom = false
 
 -- Cursor Configuration - Let Vim/Neovim control cursor styles
 config.default_cursor_style = 'BlinkingBlock'
-config.cursor_blink_rate = 460 -- Blinking cursor (1 second cycle)
+config.cursor_blink_rate = 360 -- Blinking cursor (1 second cycle)
+config.cursor_blink_ease_in = 'Constant'
+config.cursor_blink_ease_out = 'Constant'
 
 -- Scrollback
 config.scrollback_lines = 10000
 
 -- Visual Bell (disable audio bell)
-config.visual_bell = {
-  fade_in_duration_ms = 0,
-  fade_out_duration_ms = 0,
-  target = 'CursorColor',
-}
+-- config.visual_bell = {
+--   fade_in_duration_ms = 0,
+--   fade_out_duration_ms = 0,
+--   target = 'CursorColor',
+-- }
 config.audible_bell = 'Disabled'
 
 -- Performance
