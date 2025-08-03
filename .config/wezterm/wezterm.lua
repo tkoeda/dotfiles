@@ -99,17 +99,17 @@ config.hide_tab_bar_if_only_one_tab = true
 config.use_fancy_tab_bar = false
 config.tab_bar_at_bottom = false
 
--- Cursor Configuration (block cursor like VS Code)
-config.default_cursor_style = 'SteadyBlock'
-config.cursor_blink_rate = 0 -- Solid cursor, no blinking
+-- Cursor Configuration - Let Vim/Neovim control cursor styles
+config.default_cursor_style = 'BlinkingBlock'
+config.cursor_blink_rate = 460 -- Blinking cursor (1 second cycle)
 
 -- Scrollback
 config.scrollback_lines = 10000
 
 -- Visual Bell (disable audio bell)
 config.visual_bell = {
-  fade_in_duration_ms = 75,
-  fade_out_duration_ms = 75,
+  fade_in_duration_ms = 0,
+  fade_out_duration_ms = 0,
   target = 'CursorColor',
 }
 config.audible_bell = 'Disabled'
