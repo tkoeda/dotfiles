@@ -100,7 +100,7 @@ config.tab_bar_at_bottom = false
 
 -- Cursor Configuration - Let Vim/Neovim control cursor styles
 config.default_cursor_style = 'BlinkingBlock'
-config.cursor_blink_rate = 360 -- Blinking cursor (1 second cycle)
+config.cursor_blink_rate = 400 -- Blinking cursor (1 second cycle)
 config.cursor_blink_ease_in = 'Constant'
 config.cursor_blink_ease_out = 'Constant'
 
