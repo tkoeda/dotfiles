@@ -6,4 +6,4 @@ nnoremap <silent> zk O<Esc>j
 
 filetype plugin indent on
 
-
+set clipboard=unnamed

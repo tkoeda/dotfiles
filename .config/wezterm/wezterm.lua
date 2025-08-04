@@ -27,8 +27,8 @@ config.colors = {
   cursor_border = '#DA70D6',
 
   -- Selection colors (based on your list selection colors)
-  selection_fg = '#f8f8f2',
-  selection_bg = '#231739',
+  selection_fg = '#140E1A',
+  selection_bg = '#F0C8FF',
 
   -- ANSI colors (Dracula-inspired palette)
   ansi = {
@@ -99,10 +99,7 @@ config.use_fancy_tab_bar = false
 config.tab_bar_at_bottom = false
 
 -- Cursor Configuration - Let Vim/Neovim control cursor styles
-config.default_cursor_style = 'BlinkingBlock'
-config.cursor_blink_rate = 400 -- Blinking cursor (1 second cycle)
-config.cursor_blink_ease_in = 'Constant'
-config.cursor_blink_ease_out = 'Constant'
+config.default_cursor_style = 'SteadyBlock'
 
 -- Scrollback
 config.scrollback_lines = 10000
@@ -121,6 +118,11 @@ config.front_end = "WebGpu" -- Or "OpenGL" if WebGpu causes issues
 
 -- Key bindings (optional - add your preferred shortcuts)
 config.keys = {
+  {
+    key = 'P',
+    mods = 'CTRL',
+    action = wezterm.action.ActivateCommandPalette,
+  },
   -- Split panes
   {
     key = 'd',
