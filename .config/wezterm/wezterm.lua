@@ -14,73 +14,75 @@ config.font_size = 14.0
 -- Enable font ligatures (Fira Code has ligatures)
 config.harfbuzz_features = { 'calt=1', 'clig=1', 'liga=1' }
 
+config.color_scheme = "Catppuccin Mocha"
+
 -- Color Scheme - Aura Dracula Spirit inspired
 -- Based on your VS Code color customizations
-config.colors = {
-  -- Foreground and background
-  foreground = '#f8f8f2',
-  background = '#140E1A', -- From sideBar.background
+-- config.colors = {
+--   -- Foreground and background
+--   foreground = '#f8f8f2',
+--   background = '#140E1A', -- From sideBar.background
 
-  -- Cursor colors (based on your pink/purple cursor)
-  cursor_bg = '#DA70D6',
-  cursor_fg = '#140E1A',
-  cursor_border = '#DA70D6',
+--   -- Cursor colors (based on your pink/purple cursor)
+--   cursor_bg = '#DA70D6',
+--   cursor_fg = '#140E1A',
+--   cursor_border = '#DA70D6',
 
-  -- Selection colors (based on your list selection colors)
-  selection_fg = '#140E1A',
-  selection_bg = '#F0C8FF',
+--   -- Selection colors (based on your list selection colors)
+--   selection_fg = '#140E1A',
+--   selection_bg = '#F0C8FF',
 
-  -- ANSI colors (Dracula-inspired palette)
-  ansi = {
-    '#21222C', -- black
-    '#FF5555', -- red
-    '#50FA7B', -- green
-    '#F1FA8C', -- yellow
-    '#BD93F9', -- blue
-    '#FF79C6', -- magenta
-    '#8BE9FD', -- cyan
-    '#F8F8F2', -- white
-  },
+--   -- ANSI colors (Dracula-inspired palette)
+--   ansi = {
+--     '#21222C', -- black
+--     '#FF5555', -- red
+--     '#50FA7B', -- green
+--     '#F1FA8C', -- yellow
+--     '#BD93F9', -- blue
+--     '#FF79C6', -- magenta
+--     '#8BE9FD', -- cyan
+--     '#F8F8F2', -- white
+--   },
 
-  -- Bright ANSI colors
-  brights = {
-    '#6272A4', -- bright black
-    '#FF6E6E', -- bright red
-    '#69FF94', -- bright green
-    '#FFFFA5', -- bright yellow
-    '#D6ACFF', -- bright blue
-    '#FF92DF', -- bright magenta
-    '#A4FFFF', -- bright cyan
-    '#FFFFFF', -- bright white
-  },
+--   -- Bright ANSI colors
+--   brights = {
+--     '#6272A4', -- bright black
+--     '#FF6E6E', -- bright red
+--     '#69FF94', -- bright green
+--     '#FFFFA5', -- bright yellow
+--     '#D6ACFF', -- bright blue
+--     '#FF92DF', -- bright magenta
+--     '#A4FFFF', -- bright cyan
+--     '#FFFFFF', -- bright white
+--   },
 
-  -- Tab bar colors
-  tab_bar = {
-    background = '#140E1A',
-    active_tab = {
-      bg_color = '#231739',
-      fg_color = '#f8f8f2',
-    },
-    inactive_tab = {
-      bg_color = '#140E1A',
-      fg_color = '#6272a4',
-    },
-    inactive_tab_hover = {
-      bg_color = '#231739',
-      fg_color = '#f8f8f2',
-      italic = false,
-    },
-    new_tab = {
-      bg_color = '#140E1A',
-      fg_color = '#6272a4',
-    },
-    new_tab_hover = {
-      bg_color = '#231739',
-      fg_color = '#f8f8f2',
-      italic = false,
-    },
-  },
-}
+--   -- Tab bar colors
+--   tab_bar = {
+--     background = '#140E1A',
+--     active_tab = {
+--       bg_color = '#231739',
+--       fg_color = '#f8f8f2',
+--     },
+--     inactive_tab = {
+--       bg_color = '#140E1A',
+--       fg_color = '#6272a4',
+--     },
+--     inactive_tab_hover = {
+--       bg_color = '#231739',
+--       fg_color = '#f8f8f2',
+--       italic = false,
+--     },
+--     new_tab = {
+--       bg_color = '#140E1A',
+--       fg_color = '#6272a4',
+--     },
+--     new_tab_hover = {
+--       bg_color = '#231739',
+--       fg_color = '#f8f8f2',
+--       italic = false,
+--     },
+--   },
+-- }
 
 -- Window Configuration
 config.window_background_opacity = 1.0
@@ -118,6 +120,7 @@ config.front_end = "WebGpu" -- Or "OpenGL" if WebGpu causes issues
 
 -- Key bindings (optional - add your preferred shortcuts)
 config.keys = {
+
   {
     key = 'P',
     mods = 'CTRL',
@@ -178,6 +181,20 @@ config.keys = {
   mods = 'CMD',
   action = wezterm.action.ResetFontSize,
   },
+  {
+  key = 'R',
+  mods = 'CMD|SHIFT', -- Or a key combination you prefer
+  action = wezterm.action.PromptInputLine {
+    description = "Enter new title for tab",
+    -- The action to be performed on the input string is specified here.
+    action = wezterm.action_callback(function(window, pane, line)
+      -- line will be `nil` if the user hit escape without entering anything
+      if line then
+        window:active_tab():set_title(line)
+      end
+    end),
+  },
+},
 
   -- Shift Highlight
   -- { key = 'LeftArrow', mods = 'CTRL|SHIFT', action = 'DisableDefaultAssignment' },

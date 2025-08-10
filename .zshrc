@@ -69,10 +69,6 @@ export PYENV_ROOT="$HOME/.pyenv"
 export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
 export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
 
-# Terraform 
-export PATH="$HOME/.tfenv/bin:$PATH"
-eval "$(tfenv init -)"
-
 # -----------------------------------------------------------------------------
 # Tool Initialization
 # -----------------------------------------------------------------------------
