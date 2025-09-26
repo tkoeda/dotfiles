@@ -11,4 +11,4 @@
 *.swo
 
 # Ignore Git Config
-.gitconfig
+.gitconfig.local

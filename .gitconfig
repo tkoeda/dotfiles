@@ -3,9 +3,6 @@
 	name = Tai Koeda
 	email = t.koeda@cscloud.co.jp
 	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKeBBfY+YeqajSHw+78vcL7vOfc9iTEjbAevdFEIgC8l
-# Please adapt and uncomment the following lines:
-#	name = tkoeda-csc
-#	email = t.koeda@cscloud.co.jp
 [alias]
 	gl = config --global -l
 	can = commit --amend --no-edit
@@ -27,3 +24,5 @@
 	ff = true
 [diff]
 	tool = vimdiff
+[include]
+    path = ~/.gitconfig.local
