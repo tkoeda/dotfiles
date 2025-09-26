@@ -120,7 +120,16 @@ config.front_end = "WebGpu" -- Or "OpenGL" if WebGpu causes issues
 
 -- Key bindings (optional - add your preferred shortcuts)
 config.keys = {
-
+  {
+    key = ',',
+    mods = 'CMD|SHIFT',
+    action = wezterm.action.MoveTabRelative(-1),
+  },
+  {
+    key = '.',
+    mods = 'CMD|SHIFT',
+    action = wezterm.action.MoveTabRelative(1),
+  },
   {
     key = 'P',
     mods = 'CTRL',

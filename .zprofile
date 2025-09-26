@@ -10,3 +10,6 @@ fi
 export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
 
 
+
+# Created by `pipx` on 2025-08-12 05:10:40
+export PATH="$PATH:/Users/csc-r169/.local/bin"

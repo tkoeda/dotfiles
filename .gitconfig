@@ -24,3 +24,5 @@
 [pull]
 	rebase = false
 	ff = true
+[diff]
+	tool = vimdiff

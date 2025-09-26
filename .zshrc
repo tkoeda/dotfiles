@@ -109,13 +109,16 @@ alias lll='eza -l --group --links'            # Show hard link counts
 alias llt='eza -l --group --time-style=long-iso'  # ISO timestamps
 alias llx='eza -l --group --extended'         # Show extended attributes details
 
+# CloudFastener Dev Commands
+alias cf-connect='/Users/csc-r169/Documents/code/repos/cf/cloudfastener-dev-tools/cf-connect/cf-connect'
+
 # -----------------------------------------------------------------------------
 # Mode-Specific Configuration
 # -----------------------------------------------------------------------------
 if [[ "$AGENT_MODE" != "true" ]]; then
   # Interactive mode - Load Powerlevel10k config
   [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-  
+
   # Custom color scheme (commented out - uncomment to use)
   # zstyle :prompt:pure:path color 183                    # Brighter purple for paths
   # zstyle :prompt:pure:git:branch color 13               # Hot magenta for branches
@@ -134,14 +137,14 @@ else
   # Agent mode - Minimal configuration
   PROMPT='%n@%m:%~%# '
   RPROMPT=''
-  
+
   # Disable corrections and beeps
   unsetopt CORRECT
   unsetopt CORRECT_ALL
   setopt NO_BEEP
   setopt NO_HIST_BEEP
   setopt NO_LIST_BEEP
-  
+
   # Agent-friendly aliases (non-interactive)
   alias rm='rm -f'
   alias cp='cp -f'
@@ -151,4 +154,3 @@ else
   alias pip='pip --quiet'
   alias git='git -c advice.detachedHead=false'
 fi
-
