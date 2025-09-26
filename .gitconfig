@@ -2,6 +2,7 @@
 [user]
 	name = Tai Koeda
 	email = t.koeda@cscloud.co.jp
+	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKeBBfY+YeqajSHw+78vcL7vOfc9iTEjbAevdFEIgC8l
 # Please adapt and uncomment the following lines:
 #	name = tkoeda-csc
 #	email = t.koeda@cscloud.co.jp
@@ -26,3 +27,9 @@
 	ff = true
 [diff]
 	tool = vimdiff
+[gpg]
+	format = ssh
+[gpg "ssh"]
+	program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
+[commit]
+	gpgsign = true

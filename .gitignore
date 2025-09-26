@@ -9,3 +9,6 @@
 # Ignore temporary editor files
 *.swp
 *.swo
+
+# Ignore Git Config
+.gitconfig

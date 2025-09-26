@@ -154,3 +154,6 @@ else
   alias pip='pip --quiet'
   alias git='git -c advice.detachedHead=false'
 fi
+
+
+[[ "$TERM_PROGRAM" == "kiro" ]] && . "$(kiro --locate-shell-integration-path zsh)"
