@@ -12,3 +12,5 @@
 
 # Ignore Git Config
 .gitconfig.local
+
+.config/yarn
