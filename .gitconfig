@@ -1,6 +1,4 @@
 # This is Git's per-user configuration file.
-[user]
-	
 [alias]
 	gl = config --global -l
 	can = commit --amend --no-edit
