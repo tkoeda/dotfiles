@@ -1,8 +1,6 @@
 # This is Git's per-user configuration file.
 [user]
-	name = Tai Koeda
-	email = t.koeda@cscloud.co.jp
-	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKeBBfY+YeqajSHw+78vcL7vOfc9iTEjbAevdFEIgC8l
+	
 [alias]
 	gl = config --global -l
 	can = commit --amend --no-edit
