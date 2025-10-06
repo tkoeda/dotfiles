@@ -5,19 +5,6 @@
             "complex_modifications": {
                 "rules": [
                     {
-                        "description": "Switch between colemak -> default",
-                        "manipulators": [
-                            {
-                                "from": {
-                                    "key_code": "tab",
-                                    "modifiers": { "mandatory": ["right_shift"] }
-                                },
-                                "to": [{ "shell_command": "'/Library/Application Support/org.pqrs/Karabiner-Elements/bin/karabiner_cli' --select-profile 'default'" }],
-                                "type": "basic"
-                            }
-                        ]
-                    },
-                    {
                         "description": "Change shift + @ from ` to {",
                         "manipulators": [
                             {
@@ -2459,6 +2446,19 @@
                                 "type": "basic"
                             }
                         ]
+                    },
+                    {
+                        "description": "Switch between colemak -> default",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "tab",
+                                    "modifiers": { "mandatory": ["right_shift"] }
+                                },
+                                "to": [{ "shell_command": "'/Library/Application Support/org.pqrs/Karabiner-Elements/bin/karabiner_cli' --select-profile 'default'" }],
+                                "type": "basic"
+                            }
+                        ]
                     }
                 ]
             },
@@ -2501,7 +2501,8 @@
                         "product_id": 24926,
                         "vendor_id": 7504
                     },
-                    "ignore": true
+                    "ignore": true,
+                    "treat_as_built_in_keyboard": true
                 }
             ],
             "name": "default",
