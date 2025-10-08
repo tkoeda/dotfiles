@@ -61,11 +61,20 @@ source $ZSH/oh-my-zsh.sh
 # -----------------------------------------------------------------------------
 # Environment Variables & PATH
 # -----------------------------------------------------------------------------
+# Homebrew - detect architecture
+if [[ $(uname -m) == "arm64" ]]; then
+  # M2 Mac
+  export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
+else
+  # Intel Mac
+  export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
+fi
 # Python (pyenv)
 export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
 
 # Homebrew packages
+
 export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
 export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
 
