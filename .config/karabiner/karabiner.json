@@ -2470,6 +2470,14 @@
                         "vendor_id": 7504
                     },
                     "ignore": true
+                },
+                {
+                    "identifiers": {
+                        "is_keyboard": true,
+                        "product_id": 29270,
+                        "vendor_id": 51984
+                    },
+                    "ignore": true
                 }
             ],
             "name": "colemak",

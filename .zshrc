@@ -157,3 +157,6 @@ fi
 
 
 [[ "$TERM_PROGRAM" == "kiro" ]] && . "$(kiro --locate-shell-integration-path zsh)"
+
+# Created by `pipx` on 2025-10-03 14:42:06
+export PATH="$PATH:/Users/taikoeda/.local/bin"
