@@ -5,6 +5,19 @@
             "complex_modifications": {
                 "rules": [
                     {
+                        "description": "Switch between colemak -> default",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "tab",
+                                    "modifiers": { "mandatory": ["right_shift"] }
+                                },
+                                "to": [{ "shell_command": "'/Library/Application Support/org.pqrs/Karabiner-Elements/bin/karabiner_cli' --select-profile 'default'" }],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
                         "description": "Change shift + @ from ` to {",
                         "manipulators": [
                             {
@@ -492,6 +505,89 @@
                                     }
                                 },
                                 "to": [{ "key_code": "quote" }],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "Word Navigation for Colemak-DHm (Option+E=left word, Option+T=right word, Option+W=delete word)",
+                        "manipulators": [
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.apple\\.Terminal$",
+                                            "^com\\.googlecode\\.iterm2$",
+                                            "^com\\.github\\.wez\\.wezterm$",
+                                            "^org\\.alacritty$",
+                                            "^net\\.kovidgoyal\\.kitty$",
+                                            "^co\\.zeit\\.hyper$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "e",
+                                    "modifiers": { "mandatory": ["left_option"] }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "left_arrow",
+                                        "modifiers": ["left_option"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.apple\\.Terminal$",
+                                            "^com\\.googlecode\\.iterm2$",
+                                            "^com\\.github\\.wez\\.wezterm$",
+                                            "^org\\.alacritty$",
+                                            "^net\\.kovidgoyal\\.kitty$",
+                                            "^co\\.zeit\\.hyper$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "t",
+                                    "modifiers": { "mandatory": ["left_option"] }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "right_arrow",
+                                        "modifiers": ["left_option"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.apple\\.Terminal$",
+                                            "^com\\.googlecode\\.iterm2$",
+                                            "^com\\.github\\.wez\\.wezterm$",
+                                            "^org\\.alacritty$",
+                                            "^net\\.kovidgoyal\\.kitty$",
+                                            "^co\\.zeit\\.hyper$"
+                                        ],
+                                        "type": "frontmost_application_unless"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "w",
+                                    "modifiers": { "mandatory": ["left_option"] }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "delete_or_backspace",
+                                        "modifiers": ["left_command"]
+                                    }
+                                ],
                                 "type": "basic"
                             }
                         ]
@@ -2340,18 +2436,33 @@
                                 "type": "basic"
                             }
                         ]
+                    },
+                    {
+                        "description": "Map Eisu/Kana to L/R Command (JIS)",
+                        "manipulators": [
+                            {
+                                "description": " EISUU → LEFT COMMAND ",
+                                "from": {
+                                    "key_code": "japanese_eisuu",
+                                    "modifiers": { "optional": ["any"] }
+                                },
+                                "to": [{ "key_code": "left_command" }],
+                                "type": "basic"
+                            },
+                            {
+                                "description": " KANA → RIGHT COMMAND ",
+                                "from": {
+                                    "key_code": "japanese_kana",
+                                    "modifiers": { "optional": ["any"] }
+                                },
+                                "to": [{ "key_code": "right_command" }],
+                                "type": "basic"
+                            }
+                        ]
                     }
                 ]
             },
             "devices": [
-                {
-                    "identifiers": {
-                        "is_keyboard": true,
-                        "product_id": 29270,
-                        "vendor_id": 51984
-                    },
-                    "ignore": true
-                },
                 {
                     "identifiers": {
                         "is_keyboard": true,
@@ -2366,9 +2477,30 @@
             "virtual_hid_keyboard": { "keyboard_type_v2": "jis" }
         },
         {
+            "complex_modifications": {
+                "rules": [
+                    {
+                        "description": "Switch between default -> colemak",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "tab",
+                                    "modifiers": { "mandatory": ["right_shift"] }
+                                },
+                                "to": [{ "shell_command": "'/Library/Application Support/org.pqrs/Karabiner-Elements/bin/karabiner_cli' --select-profile 'colemak'" }],
+                                "type": "basic"
+                            }
+                        ]
+                    }
+                ]
+            },
             "devices": [
                 {
-                    "identifiers": { "is_keyboard": true },
+                    "identifiers": {
+                        "is_keyboard": true,
+                        "product_id": 24926,
+                        "vendor_id": 7504
+                    },
                     "ignore": true
                 }
             ],
