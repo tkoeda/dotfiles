@@ -16,4 +16,4 @@
 .config/yarn
 
 .config/topgrade.toml
-.custom/karabiner
+.custom/karabiner/
