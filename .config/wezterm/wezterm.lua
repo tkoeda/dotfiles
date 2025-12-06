@@ -120,6 +120,7 @@ config.front_end = "WebGpu" -- Or "OpenGL" if WebGpu causes issues
 
 -- Key bindings (optional - add your preferred shortcuts)
 config.keys = {
+  {key="Enter", mods="SHIFT", action=wezterm.action{SendString="\x1b\r"}},
   {
     key = ',',
     mods = 'CMD|SHIFT',
