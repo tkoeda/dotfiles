@@ -61,28 +61,41 @@ source $ZSH/oh-my-zsh.sh
 # -----------------------------------------------------------------------------
 # Environment Variables & PATH
 # -----------------------------------------------------------------------------
-# Homebrew - detect architecture
-if [[ $(uname -m) == "arm64" ]]; then
-  # M2 Mac
-  export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
-else
-  # Intel Mac
-  export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
+# Platform detection
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  # macOS
+  # Homebrew - detect architecture
+  if [[ $(uname -m) == "arm64" ]]; then
+    # M2/M3 Mac
+    export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
+    export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
+    export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
+  else
+    # Intel Mac
+    export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
+  fi
+
+  # Python (pyenv)
+  export PYENV_ROOT="$HOME/.pyenv"
+  [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+
+elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
+  # Linux / WSL
+  # Add .local/bin for user-installed tools (zoxide, eza, etc.)
+  export PATH="$HOME/.local/bin:$PATH"
 fi
-# Python (pyenv)
-export PYENV_ROOT="$HOME/.pyenv"
-[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-
-# Homebrew packages
-
-export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
-export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
 
 # -----------------------------------------------------------------------------
 # Tool Initialization
 # -----------------------------------------------------------------------------
-eval "$(pyenv init - zsh)"
-eval "$(zoxide init zsh)"
+# Initialize tools if available
+if [[ "$OSTYPE" == "darwin"* ]] && command -v pyenv &> /dev/null; then
+  eval "$(pyenv init - zsh)"
+fi
+
+if command -v zoxide &> /dev/null; then
+  eval "$(zoxide init zsh)"
+fi
 
 # -----------------------------------------------------------------------------
 # Aliases
@@ -90,36 +103,45 @@ eval "$(zoxide init zsh)"
 # General aliases
 alias g='git'
 alias v='nvim'
-alias cd='z'
-alias zz='z -'
 
-# File listing (eza)
-alias ls='eza'
-alias ll='eza -l'
-alias la='eza -la'
-alias lt='eza --tree'
-alias lg='eza -l --git'
-alias lh='eza -l --header'
-alias lm='eza -l --sort=modified'
-alias lsize='eza -l --sort=size'
-alias lga='eza -la --git'
-alias ltr='eza -l --sort=modified --reverse'
+# Conditional aliases based on tool availability
+if command -v zoxide &> /dev/null; then
+  alias cd='z'
+  alias zz='z -'
+fi
 
-# Tree views
-alias tree='eza --tree'
-alias tree2='eza --tree --level=2'
-alias tree3='eza --tree --level=3'
+# File listing (eza) - only if available
+if command -v eza &> /dev/null; then
+  alias ls='eza'
+  alias ll='eza -l'
+  alias la='eza -la'
+  alias lt='eza --tree'
+  alias lg='eza -l --git'
+  alias lh='eza -l --header'
+  alias lm='eza -l --sort=modified'
+  alias lsize='eza -l --sort=size'
+  alias lga='eza -la --git'
+  alias ltr='eza -l --sort=modified --reverse'
 
-# More detailed views
-alias llg='eza -l --group'                    # Show groups explicitly
-alias lla='eza -l --all --group'              # All files + groups
-alias llf='eza -l --group --git --header'     # Full details: groups + git + headers
-alias lll='eza -l --group --links'            # Show hard link counts
-alias llt='eza -l --group --time-style=long-iso'  # ISO timestamps
-alias llx='eza -l --group --extended'         # Show extended attributes details
+  # Tree views
+  alias tree='eza --tree'
+  alias tree2='eza --tree --level=2'
+  alias tree3='eza --tree --level=3'
 
-# CloudFastener Dev Commands
-alias cf-connect='/Users/csc-r169/Documents/code/repos/cf/cloudfastener-dev-tools/cf-connect/cf-connect'
+  # More detailed views
+  alias llg='eza -l --group'
+  alias lla='eza -l --all --group'
+  alias llf='eza -l --group --git --header'
+  alias lll='eza -l --group --links'
+  alias llt='eza -l --group --time-style=long-iso'
+  alias llx='eza -l --group --extended'
+fi
+
+# macOS-specific aliases
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  # CloudFastener Dev Commands
+  alias cf-connect='/Users/csc-r169/Documents/code/repos/cf/cloudfastener-dev-tools/cf-connect/cf-connect'
+fi
 
 # -----------------------------------------------------------------------------
 # Mode-Specific Configuration
@@ -167,8 +189,26 @@ fi
 
 [[ "$TERM_PROGRAM" == "kiro" ]] && . "$(kiro --locate-shell-integration-path zsh)"
 
-# Created by `pipx` on 2025-10-03 14:42:06
-export PATH="$PATH:/Users/taikoeda/.local/bin"
+# -----------------------------------------------------------------------------
+# NVM Configuration (cross-platform)
+# -----------------------------------------------------------------------------
 export NVM_DIR="$HOME/.nvm"
-[ -s "/usr/local/opt/nvm/nvm.sh" ] && \. "/usr/local/opt/nvm/nvm.sh"
-[ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/usr/local/opt/nvm/etc/bash_completion.d/nvm"
+
+# macOS (Homebrew-installed NVM)
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"
+  [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"
+  # Intel Mac fallback
+  [ -s "/usr/local/opt/nvm/nvm.sh" ] && \. "/usr/local/opt/nvm/nvm.sh"
+  [ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/usr/local/opt/nvm/etc/bash_completion.d/nvm"
+# Linux/WSL (manual install)
+else
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+fi
+
+# -----------------------------------------------------------------------------
+# Local Configuration (optional)
+# -----------------------------------------------------------------------------
+# Load local configuration if it exists
+[[ -f ~/.zshrc.local ]] && source ~/.zshrc.local

@@ -1,0 +1,14 @@
+# .gitconfig.local - Platform and user-specific Git configuration
+# Copy this file to ~/.gitconfig.local and customize for your environment
+
+[user]
+	name = Your Name
+	email = your.email@example.com
+
+# Uncomment for WSL (use Windows Git Credential Manager)
+# [credential]
+# 	helper = /mnt/c/Program\\ Files/Git/mingw64/bin/git-credential-manager.exe
+
+# Uncomment for macOS (use osxkeychain)
+# [credential]
+# 	helper = osxkeychain

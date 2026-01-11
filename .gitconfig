@@ -1,4 +1,6 @@
 # This is Git's per-user configuration file.
+# User-specific settings (name, email, credentials) are in .gitconfig.local
+
 [alias]
 	gl = config --global -l
 	can = commit --amend --no-edit
@@ -13,12 +15,23 @@
 	s = status
 	unstage = restore --staged
 	chb = checkout -b
+
 [pager]
 	branch = false
+
 [pull]
 	rebase = false
 	ff = true
+
 [diff]
 	tool = vimdiff
+
+[init]
+	defaultBranch = main
+
+[push]
+	autoSetupRemote = true
+
+# Include local/private config (user, email, credentials)
 [include]
-    path = ~/dotfiles/.gitconfig.local
+	path = ~/.gitconfig.local
