@@ -32,6 +32,5 @@
 [push]
 	autoSetupRemote = true
 
-# Include local/private config (user, email, credentials)
 [include]
-	path = ~/.gitconfig.local
+	path = ~/dotfiles/.gitconfig.local

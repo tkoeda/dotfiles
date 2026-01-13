@@ -18,3 +18,4 @@
 .config/topgrade.toml
 .config/karabiner/
 .config/raycast/
+.config/tfenv/
