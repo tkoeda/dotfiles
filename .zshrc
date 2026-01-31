@@ -15,7 +15,7 @@ fi
 # -----------------------------------------------------------------------------
 # Performance & Debugging
 # -----------------------------------------------------------------------------
-zmodload zsh/zprof
+# zmodload zsh/zprof  # Uncomment to profile startup time
 
 # -----------------------------------------------------------------------------
 # Agent Mode Detection
@@ -83,13 +83,17 @@ elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
   # Linux / WSL
   # Add .local/bin for user-installed tools (zoxide, eza, etc.)
   export PATH="$HOME/.local/bin:$PATH"
+
+  # Python (pyenv)
+  export PYENV_ROOT="$HOME/.pyenv"
+  [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
 fi
 
 # -----------------------------------------------------------------------------
 # Tool Initialization
 # -----------------------------------------------------------------------------
 # Initialize tools if available
-if [[ "$OSTYPE" == "darwin"* ]] && command -v pyenv &> /dev/null; then
+if command -v pyenv &> /dev/null; then
   eval "$(pyenv init - zsh)"
 fi
 
@@ -190,22 +194,37 @@ fi
 [[ "$TERM_PROGRAM" == "kiro" ]] && . "$(kiro --locate-shell-integration-path zsh)"
 
 # -----------------------------------------------------------------------------
-# NVM Configuration (cross-platform)
+# NVM Configuration (cross-platform, lazy-loaded)
 # -----------------------------------------------------------------------------
 export NVM_DIR="$HOME/.nvm"
 
-# macOS (Homebrew-installed NVM)
-if [[ "$OSTYPE" == "darwin"* ]]; then
-  [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"
-  [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"
-  # Intel Mac fallback
-  [ -s "/usr/local/opt/nvm/nvm.sh" ] && \. "/usr/local/opt/nvm/nvm.sh"
-  [ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/usr/local/opt/nvm/etc/bash_completion.d/nvm"
-# Linux/WSL (manual install)
-else
-  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-fi
+# Lazy load NVM to speed up shell startup
+_load_nvm() {
+  unset -f nvm node npm npx pnpm yarn _load_nvm
+
+  if [[ "$OSTYPE" == "darwin"* ]]; then
+    # macOS (Homebrew-installed NVM) - M1/M2/M3
+    if [ -s "/opt/homebrew/opt/nvm/nvm.sh" ]; then
+      \. "/opt/homebrew/opt/nvm/nvm.sh"
+      [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"
+    # Intel Mac fallback
+    elif [ -s "/usr/local/opt/nvm/nvm.sh" ]; then
+      \. "/usr/local/opt/nvm/nvm.sh"
+      [ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/usr/local/opt/nvm/etc/bash_completion.d/nvm"
+    fi
+  else
+    # Linux/WSL (manual install)
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+  fi
+}
+
+nvm() { _load_nvm && nvm "$@"; }
+node() { _load_nvm && node "$@"; }
+npm() { _load_nvm && npm "$@"; }
+npx() { _load_nvm && npx "$@"; }
+pnpm() { _load_nvm && pnpm "$@"; }
+yarn() { _load_nvm && yarn "$@"; }
 
 # -----------------------------------------------------------------------------
 # Local Configuration (optional)
