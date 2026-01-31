@@ -154,20 +154,6 @@ if [[ "$AGENT_MODE" != "true" ]]; then
   # Interactive mode - Load Powerlevel10k config
   [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-  # Custom color scheme (commented out - uncomment to use)
-  # zstyle :prompt:pure:path color 183                    # Brighter purple for paths
-  # zstyle :prompt:pure:git:branch color 13               # Hot magenta for branches
-  # zstyle :prompt:pure:git:branch:cached color 54        # Deep purple for cached
-  # zstyle :prompt:pure:git:action color 208              # Bright orange for actions
-  # zstyle :prompt:pure:git:dirty color 13                # Hot pink for dirty status
-  # zstyle :prompt:pure:host color 51                     # Electric cyan for host
-  # zstyle :prompt:pure:user color 141                    # Vibrant purple for user
-  # zstyle :prompt:pure:user:root color 196               # Bright red for root
-  # zstyle :prompt:pure:virtualenv color 226              # Bright yellow for virtualenv
-  # zstyle :prompt:pure:execution_time color 176          # Soft pink for timing
-  # zstyle :prompt:pure:prompt:success color 13           # Hot magenta/pink for success arrow
-  # zstyle :prompt:pure:prompt:error color 196            # Bright red for error arrow
-
 else
   # Agent mode - Minimal configuration
   PROMPT='%n@%m:%~%# '
@@ -231,3 +217,4 @@ yarn() { _load_nvm && yarn "$@"; }
 # -----------------------------------------------------------------------------
 # Load local configuration if it exists
 [[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
+return 0
