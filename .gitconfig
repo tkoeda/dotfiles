@@ -30,7 +30,7 @@
 	defaultBranch = main
 
 [push]
-	autoSetupRemote = true
+	autoSetupRemote = false
 
 [include]
 	path = ~/dotfiles/.gitconfig.local
