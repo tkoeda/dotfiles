@@ -139,12 +139,13 @@ if command -v eza &> /dev/null; then
   alias lll='eza -l --group --links'
   alias llt='eza -l --group --time-style=long-iso'
   alias llx='eza -l --group --extended'
+  alias l='eza -lh --git --group-directories-first'
 fi
 
 # macOS-specific aliases
 if [[ "$OSTYPE" == "darwin"* ]]; then
   # CloudFastener Dev Commands
-  alias cf-connect='/Users/csc-r169/Documents/code/repos/cf/cloudfastener-dev-tools/cf-connect/cf-connect'
+  alias cf-connect='/Users/csc-r169/Documents/code/repos/cf/tools/cloudfastener-dev-tools/cf-connect/cf-connect'
 fi
 
 # -----------------------------------------------------------------------------

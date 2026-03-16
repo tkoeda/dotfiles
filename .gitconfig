@@ -34,6 +34,3 @@
 
 [include]
 	path = ~/dotfiles/.gitconfig.local
-[user]
-	email = gwckoeda@gmail.com
-	name = tkoeda
