@@ -107,6 +107,12 @@ fi
 # General aliases
 alias g='git'
 alias v='nvim'
+git-pull-all() {
+    # If you don't provide a number, it defaults to 3
+    local depth="${1:-3}"
+    
+    find . -maxdepth "$depth" -name ".git" -type d -execdir bash -c 'echo -e "\033[0;32m--- Updating $(basename "$PWD") ---\033[0m"; git pull' \;
+}
 
 # Conditional aliases based on tool availability
 if command -v zoxide &> /dev/null; then
