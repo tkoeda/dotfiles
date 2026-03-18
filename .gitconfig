@@ -15,6 +15,9 @@
 	s = status
 	unstage = restore --staged
 	chb = checkout -b
+	cleanup-merged = "!f(){ \\\n  base=${1:-$(git symbolic-ref --quiet --short refs/remotes/origin/HEAD | sed \"s#^origin/##\")}; \\\n  git for-each-ref --merged \"$base\" --format=\"%(refname:short)\" refs/heads | \\\n  grep -v -x \"$base\" | \\\n  while IFS= read -r b; do \\\n    [ -n \"$b\" ] && git branch -d -- \"$b\"; \\\n  done; \\\n}; f"
+	cleanup-gone = "!f(){ git fetch -p && git for-each-ref --format=\"%(refname:short) %(upstream:track)\" refs/heads | awk '$2==\"[gone]\"{print $1}' | while IFS= read -r b; do git branch -D -- \"$b\"; done; }; f"
+	cleanup-local-only = "!f(){ current=$(git symbolic-ref --quiet --short HEAD); git for-each-ref --format='%(refname:short) %(upstream:short)' refs/heads | awk '$2==\"\"{print $1}' | grep -v -x \"$current\" | while IFS= read -r b; do [ -n \"$b\" ] && git branch -d -- \"$b\"; done; }; f"
 
 [pager]
 	branch = false
