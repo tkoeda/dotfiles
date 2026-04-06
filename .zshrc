@@ -3,6 +3,34 @@
 # =============================================================================
 
 # -----------------------------------------------------------------------------
+# Non-interactive early exit (industry standard)
+# -----------------------------------------------------------------------------
+# Scripts, CI, and agent tools (Claude Code, etc.) run non-interactive shells.
+# Nothing below this point is needed — exit before Oh My Zsh and plugins load.
+# PATH and pyenv are set here first so non-interactive callers can find Python.
+if [[ "$-" != *i* ]]; then
+  export DEBIAN_FRONTEND=noninteractive
+  export NONINTERACTIVE=1
+  # PATH setup for non-interactive callers
+  if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+    export PATH="$HOME/.local/bin:$PATH"
+    export PYENV_ROOT="$HOME/.pyenv"
+    [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+    if command -v pyenv &> /dev/null; then
+      eval "$(pyenv init - zsh)"
+    fi
+  elif [[ "$OSTYPE" == "darwin"* ]]; then
+    export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
+    export PYENV_ROOT="$HOME/.pyenv"
+    [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+    if command -v pyenv &> /dev/null; then
+      eval "$(pyenv init - zsh)"
+    fi
+  fi
+  return
+fi
+
+# -----------------------------------------------------------------------------
 # Powerlevel10k Instant Prompt
 # -----------------------------------------------------------------------------
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
@@ -18,34 +46,13 @@ fi
 # zmodload zsh/zprof  # Uncomment to profile startup time
 
 # -----------------------------------------------------------------------------
-# Agent Mode Detection
-# -----------------------------------------------------------------------------
-# Detect if running in agent/CI mode for minimal configuration
-if [[ -n "$npm_config_yes" ]] || [[ -n "$CI" ]] || [[ "$-" != *i* ]]; then
-  export AGENT_MODE=true
-else
-  export AGENT_MODE=false
-fi
-
-# Agent-specific non-interactive settings
-if [[ "$AGENT_MODE" == "true" ]]; then
-  export DEBIAN_FRONTEND=noninteractive
-  export NONINTERACTIVE=1
-fi
-
-# -----------------------------------------------------------------------------
 # Oh My Zsh Configuration
 # -----------------------------------------------------------------------------
 export ZSH="$HOME/.oh-my-zsh"
 export ZSH_CUSTOM="$HOME/dotfiles/custom"
 export DEFAULT_USER=$USER
 
-# Theme selection based on mode
-if [[ "$AGENT_MODE" != "true" ]]; then
-  ZSH_THEME="powerlevel10k/powerlevel10k"
-else
-  ZSH_THEME=""
-fi
+ZSH_THEME="powerlevel10k/powerlevel10k"
 
 # Plugins
 plugins=(
@@ -97,22 +104,20 @@ if command -v pyenv &> /dev/null; then
   eval "$(pyenv init - zsh)"
 fi
 
-if command -v zoxide &> /dev/null; then
-  eval "$(zoxide init zsh)"
-fi
-
 # -----------------------------------------------------------------------------
 # Aliases
 # -----------------------------------------------------------------------------
 # General aliases
+alias c='claude'
 alias g='git'
 alias v='nvim'
 git-pull-all() {
     # If you don't provide a number, it defaults to 3
     local depth="${1:-3}"
-    
+
     find . -maxdepth "$depth" -name ".git" -type d -execdir bash -c 'echo -e "\033[0;32m--- Updating $(basename "$PWD") ---\033[0m"; git pull' \;
 }
+
 
 # Conditional aliases based on tool availability
 if command -v zoxide &> /dev/null; then
@@ -155,33 +160,9 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 fi
 
 # -----------------------------------------------------------------------------
-# Mode-Specific Configuration
+# Powerlevel10k Configuration
 # -----------------------------------------------------------------------------
-if [[ "$AGENT_MODE" != "true" ]]; then
-  # Interactive mode - Load Powerlevel10k config
-  [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-else
-  # Agent mode - Minimal configuration
-  PROMPT='%n@%m:%~%# '
-  RPROMPT=''
-
-  # Disable corrections and beeps
-  unsetopt CORRECT
-  unsetopt CORRECT_ALL
-  setopt NO_BEEP
-  setopt NO_HIST_BEEP
-  setopt NO_LIST_BEEP
-
-  # Agent-friendly aliases (non-interactive)
-  alias rm='rm -f'
-  alias cp='cp -f'
-  alias mv='mv -f'
-  alias npm='npm --no-fund --no-audit'
-  alias yarn='yarn --non-interactive'
-  alias pip='pip --quiet'
-  alias git='git -c advice.detachedHead=false'
-fi
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 
 [[ "$TERM_PROGRAM" == "kiro" ]] && . "$(kiro --locate-shell-integration-path zsh)"
@@ -224,4 +205,8 @@ yarn() { _load_nvm && yarn "$@"; }
 # -----------------------------------------------------------------------------
 # Load local configuration if it exists
 [[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
-return 0
+
+# Zoxide must be initialized last
+if command -v zoxide &> /dev/null; then
+  eval "$(zoxide init zsh)"
+fi
