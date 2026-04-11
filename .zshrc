@@ -7,25 +7,16 @@
 # -----------------------------------------------------------------------------
 # Scripts, CI, and agent tools (Claude Code, etc.) run non-interactive shells.
 # Nothing below this point is needed — exit before Oh My Zsh and plugins load.
-# PATH and pyenv are set here first so non-interactive callers can find Python.
+# PATH and uv are set here first so non-interactive callers can find Python.
 if [[ "$-" != *i* ]]; then
   export DEBIAN_FRONTEND=noninteractive
   export NONINTERACTIVE=1
   # PATH setup for non-interactive callers
   if [[ "$OSTYPE" == "linux-gnu"* ]]; then
     export PATH="$HOME/.local/bin:$PATH"
-    export PYENV_ROOT="$HOME/.pyenv"
-    [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-    if command -v pyenv &> /dev/null; then
-      eval "$(pyenv init - zsh)"
-    fi
   elif [[ "$OSTYPE" == "darwin"* ]]; then
     export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
-    export PYENV_ROOT="$HOME/.pyenv"
-    [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-    if command -v pyenv &> /dev/null; then
-      eval "$(pyenv init - zsh)"
-    fi
+    export PATH="$HOME/.local/bin:$PATH"
   fi
   return
 fi
@@ -82,27 +73,17 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
   fi
 
-  # Python (pyenv)
-  export PYENV_ROOT="$HOME/.pyenv"
-  [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+  # uv is installed to ~/.local/bin — already on PATH via Homebrew/macOS block above
 
 elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
   # Linux / WSL
-  # Add .local/bin for user-installed tools (zoxide, eza, etc.)
+  # Add .local/bin for user-installed tools (uv, zoxide, eza, rtk, etc.)
   export PATH="$HOME/.local/bin:$PATH"
-
-  # Python (pyenv)
-  export PYENV_ROOT="$HOME/.pyenv"
-  [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
 fi
 
 # -----------------------------------------------------------------------------
 # Tool Initialization
 # -----------------------------------------------------------------------------
-# Initialize tools if available
-if command -v pyenv &> /dev/null; then
-  eval "$(pyenv init - zsh)"
-fi
 
 # -----------------------------------------------------------------------------
 # Aliases
@@ -210,3 +191,4 @@ yarn() { _load_nvm && yarn "$@"; }
 if command -v zoxide &> /dev/null; then
   eval "$(zoxide init zsh)"
 fi
+export BROWSER=wslview
