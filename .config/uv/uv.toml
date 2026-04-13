@@ -1,0 +1,2 @@
+exclude-newer = "3 days"
+exclude-newer-package = { setuptools = "30 days" }

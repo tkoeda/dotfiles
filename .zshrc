@@ -138,7 +138,9 @@ fi
 if [[ "$OSTYPE" == "darwin"* ]]; then
   # CloudFastener Dev Commands
   alias cf-connect='/Users/csc-r169/Documents/code/repos/cf/tools/cloudfastener-dev-tools/cf-connect/cf-connect'
+  alias cf-aurora-dev-mysql='mysql -h 127.0.0.1 -P 13306 -u $MYSQL_USER -p$MYSQL_PASSWORD $MYSQL_DATABASE'
 fi
+
 
 # -----------------------------------------------------------------------------
 # Powerlevel10k Configuration
